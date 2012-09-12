@@ -1,0 +1,20 @@
+#articlesWidget {
+    margin: 10px;
+    width: 324px;
+    border: 1px solid #CCC;
+    padding: 10px;
+}
+
+#articlesWidget h3 {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 10px;
+}
+
+#articlesWidget ul.list {
+    height: 350px;
+    overflow-x: auto;
+}
+
+#articlesWidget ul.list li {
+    margin-bottom: 10px;
+}
