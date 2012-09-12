@@ -1,0 +1,4 @@
+newscoop-widget
+===============
+
+newscoop-widget
