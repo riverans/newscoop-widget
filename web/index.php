@@ -1,6 +1,7 @@
 <?php
-use Symfony\Component\HttpFoundation\Request;
+
 use Newscoop\Client;
+use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -15,8 +16,7 @@ $app['debug'] = true;
 $newscoopClient = new Client();
 $newscoopClient->setApiEndpoint('http://newscoop.dev/api');
 
-$app->get('/{name}', function (Request $request, $name = 'World') use ($app, $newscoopClient){
-
+$app->get('/', function (Request $request) use ($app, $newscoopClient){
     $articles = $newscoopClient->api('/articles', array(
         'type' => 'news',
         'items_per_page' => 10
@@ -25,6 +25,6 @@ $app->get('/{name}', function (Request $request, $name = 'World') use ($app, $ne
     return $app['twig']->render('index.html.twig', array(
         'articles' => $articles,
     ));
-})->value('name', 'World');
+});
 
 $app->run();
