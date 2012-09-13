@@ -1,6 +1,6 @@
 <?php
 
-use Newscoop\Client;
+use Newscoop\API\Client;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -13,14 +13,19 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 //debug
 $app['debug'] = true;
 
-$newscoopClient = new Client();
-$newscoopClient->setApiEndpoint('http://newscoop.dev/api');
+$api = new Client();
+$api->setApiEndpoint('http://newscoop.dev/api');
 
-$app->get('/', function (Request $request) use ($app, $newscoopClient){
-    $articles = $newscoopClient->api('/articles', array(
-        'type' => 'news',
-        'items_per_page' => 10
-    ))->toArray();
+$app->get('/', function (Request $request) use ($app, $api){
+    $articles = $api->getResource('/articles', array(
+            'type' => 'news'
+        ))
+        ->setItemsPerPage(10)
+        ->setOrder(array(
+            'number' => 'desc'
+        ))
+        ->makeRequest()
+        ->toArray();
 
     return $app['twig']->render('index.html.twig', array(
         'articles' => $articles,
