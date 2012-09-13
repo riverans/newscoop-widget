@@ -4,8 +4,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Articles widget</title>
         <meta name="description" content="Newscoop API REST testing">
-        <link rel="stylesheet" href="Resources/public/css/bootstrap.css">
-        <link rel="stylesheet" href="Resources/public/css/widget.css">
+        <link rel="stylesheet" href="/Resources/public/css/bootstrap.css">
+        <link rel="stylesheet" href="/Resources/public/css/widget.css">
         <!-- <script src="js/vendor/modernizr-2.6.2.min.js"></script> -->
     </head>
     <body>
@@ -14,7 +14,7 @@
             <ul class="list unstyled">
                 {% for article in articles.items %}
                     <li>
-                        <a href="#"><h4>{{ article.title }}</h4></a>
+                        <a href="getSingleArticle/{{ article.number }}/{{ article.language }}"><h4>{{ article.title }}</h4></a>
                         {% if article.fields.deck is defined %}
                             <div class="deck">{{ article.fields.deck }}</div>
                         {% endif %}

@@ -13,8 +13,28 @@
 #articlesWidget ul.list {
     height: 350px;
     overflow-x: auto;
+    padding-right: 10px;
 }
 
 #articlesWidget ul.list li {
+    margin-bottom: 10px;
+}
+
+#articlesWidget .details {
+    height: 350px;
+    overflow-x: auto;
+    padding-right: 10px;
+}
+
+#articlesWidget .details ul.comments li {
+    margin-bottom: 10px;
+}
+
+#articlesWidget .details .comment-details {
+    border-bottom: 1px solid #CCC;
+margin-bottom: 4px;
+}
+
+#articlesWidget .details a.back-to-list {
     margin-bottom: 10px;
 }

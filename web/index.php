@@ -1,6 +1,7 @@
 <?php
 
 use Newscoop\API\Client;
+use Newscoop\API\Exception\NewscoopApiException;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -20,7 +21,7 @@ $app->get('/', function (Request $request) use ($app, $api){
     $articles = $api->getResource('/articles', array(
             'type' => 'news'
         ))
-        ->setItemsPerPage(10)
+        ->setItemsPerPage(15)
         ->setOrder(array(
             'number' => 'desc'
         ))
@@ -29,6 +30,26 @@ $app->get('/', function (Request $request) use ($app, $api){
 
     return $app['twig']->render('index.html.twig', array(
         'articles' => $articles,
+    ));
+});
+
+$app->get('/getSingleArticle/{number}/{language}', function (Request $request, $number, $language) use ($app, $api){
+    
+    $article = $api->getResource('/articles/'.$number)
+        ->makeRequest()
+        ->toArray();
+
+    try {
+        $comments = $api->getResource('/articles/'.$number.'/'.$language.'/comments')
+            ->makeRequest()
+            ->toArray();
+    } catch(NewscoopApiException $e) {
+        $comments = null;
+    }
+
+    return $app['twig']->render('getSingleArticle.html.twig', array(
+        'article' => $article,
+        'comments' => $comments
     ));
 });
 

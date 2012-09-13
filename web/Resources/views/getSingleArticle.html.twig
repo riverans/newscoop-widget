@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Articles widget</title>
+        <meta name="description" content="Newscoop API REST testing">
+        <link rel="stylesheet" href="/Resources/public/css/bootstrap.css">
+        <link rel="stylesheet" href="/Resources/public/css/widget.css">
+        <!-- <script src="js/vendor/modernizr-2.6.2.min.js"></script> -->
+    </head>
+    <body>
+        <div id="articlesWidget">
+            <h3>{{ article.title }}</h3>
+            <div class="details">
+                <a href="/" class="btn btn-success pull-left back-to-list">Back to list</a>
+                <div class="clearfix"></div>
+                {% if article.fields.deck is defined %}
+                    <div class="deck">{{ article.fields.deck|raw() }}</div>
+                {% endif %}
+                {% if article.fields.full_text is defined %}
+                    <div class="full_text">{{ article.fields.full_text|raw() }}</div>
+                {% endif %}
+
+                {% if comments %}
+                <h3>Comments</h3>
+                <ul class="comments unstyled">
+                {% for comment in comments.items %}
+                    <li>
+                        <div class="comment-details clearfix">
+                            <div class="author pull-left">{{ comment.author }}</div>
+                            <div class="created pull-right">{{ comment.created|date('Y-m-d h:i:s') }}</div>
+                        </div>
+                        {% if comment.message %}{{ comment.message }}{% else %}No message{% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
