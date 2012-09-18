@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Articles widget</title>
+        <meta name="description" content="Newscoop API REST JavaScript SDK">
+        <link rel="stylesheet" href="/Resources/public/css/bootstrap.css">
+        <link rel="stylesheet" href="/Resources/public/css/widget.css">
+        <script src="/Resources/public/js/newscoop.js"></script>
+        <script src="/Resources/public/js/jquery.js"></script>
+    </head>
+    <body>
+        <div id="articlesWidget">
+            <h3>Last articles</h3>
+            <ul class="list unstyled"></ul>
+        </div>
+
+        <div class="template" style="display:none">
+            <li><a href=""><h4></h4></a></li>
+        </div>
+
+        <script type="text/javascript">
+            var api = new NewscoopRestApi('http://newscoop.dev/api');
+            
+            api.getResource('/articles', {'type': 'news'})
+                .setItemsPerPage(5)
+                .setOrder({'number': 'desc'})
+                .makeRequest(function(res){
+                    var container = $('#articlesWidget ul');
+                    var items = res.items;
+
+                    for (i=0; i<items.length; i++) {
+                        var template = $('.template li').clone();
+
+                        $('a', template).attr('href', '/getSingleArticle/'+ items[i].number +'/' + items[i].language);
+                        $('h4', template).html(items[i].title);
+
+                        if (typeof items[i].fields.deck != 'undefined') {
+                            $(template).append('<div class="deck">'+ items[i].fields.deck +'</div>');
+                        }
+
+                        $(container).append(template);
+                    }
+                });
+        </script>
+    </body>
+</html>

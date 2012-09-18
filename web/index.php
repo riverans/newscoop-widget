@@ -53,4 +53,8 @@ $app->get('/getSingleArticle/{number}/{language}', function (Request $request, $
     ));
 });
 
+$app->get('/js', function (Request $request) use ($app){
+    return $app['twig']->render('jsSdk.html.twig');
+});
+
 $app->run();

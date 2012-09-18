@@ -6,7 +6,6 @@
         <meta name="description" content="Newscoop API REST testing">
         <link rel="stylesheet" href="/Resources/public/css/bootstrap.css">
         <link rel="stylesheet" href="/Resources/public/css/widget.css">
-        <!-- <script src="js/vendor/modernizr-2.6.2.min.js"></script> -->
     </head>
     <body>
         <div id="articlesWidget">
@@ -30,6 +29,7 @@
                             <div class="author pull-left">{{ comment.author }}</div>
                             <div class="created pull-right">{{ comment.created|date('Y-m-d h:i:s') }}</div>
                         </div>
+                        <div>{% if comment.subject %}{{ comment.subject }}{% else %}No Sobject{% endif %}</div>
                         {% if comment.message %}{{ comment.message }}{% else %}No message{% endif %}
                     </li>
                 {% endfor %}

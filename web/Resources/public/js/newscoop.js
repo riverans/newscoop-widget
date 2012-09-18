@@ -1,0 +1,1 @@
+/var/www/newscoop-js-sdk/newscoop.js
